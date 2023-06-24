@@ -1,12 +1,12 @@
 # translang
 Translation Service Module for other projects. Refer to the [hf-transllm](https://github.com/dsdanielpark/hf-transllm) Project for Reference.
 
-# Install
+## Install
 ```
 pip install translang
 ```
 
-# Seamless Integration of Translation APIs through Inheritance
+## Seamless Integration of Translation APIs through Inheritance
 You can easily extend the TranslationService class to integrate with popular translation API services, similar to the transllm project.
 ```python
 class CustomTranslationService(TranslationService):
@@ -30,7 +30,7 @@ print(f"Translated Text (Custom Translation Service): {translated_text}")
 
 <br>
 
-# Static Usage
+## Static Usage
 
 Google Translator
 ```python
