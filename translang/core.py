@@ -2,7 +2,7 @@ import re
 import deepl
 import openai
 import concurrent.futures
-from googletrans import Translator
+from deep_translator import GoogleTranslator
 from bardapi import Bard
 from typing import List
 
@@ -43,7 +43,7 @@ class TranslationService:
         self.translator_engine = None
 
         if self.translator == "google":
-            self.translator_engine = Translator()
+            pass
         elif self.translator == "deepl":
             self.translator_engine = deepl.Translator(auth_key=self.deepl_api_key)
         elif self.translator == "bard":
@@ -89,8 +89,8 @@ class TranslationService:
                 return translated_text
 
         if self.translator == "google":
-            translator_obj = Translator()
-            translated_text = translator_obj.translate(text, dest=dest_lang).text
+            self.translator_engine = GoogleTranslator(source="auto", target=dest_lang)
+            translated_text = self.translator_engine.translate(text)
         elif self.translator == "deepl":
             translated_text = self.translator_engine.translate_text(text, target_lang=dest_lang).text
         elif self.translator == "bard":

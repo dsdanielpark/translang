@@ -25,7 +25,7 @@ version = get_version()
 
 setup(
     name="translang",
-    version="0.1.2",
+    version="0.1.3",
     author="daniel park",
     author_email="parkminwoo1991@gmail.com",
     description="Translation Service API Module.",
@@ -37,7 +37,7 @@ setup(
     install_requires=[
         "requests",
         "deepl",
-        "googletrans",
+        "deep_translator",
         "bardapi",
         "openai",
     ],
