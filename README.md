@@ -36,7 +36,7 @@ print(translated_text)
 ```
 
 
-### Static Methods
+### `TranslationService.translate` Methods
 
 Google Translator
 ```python
