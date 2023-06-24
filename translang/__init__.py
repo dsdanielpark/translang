@@ -2,5 +2,5 @@
 from translang.core import TranslationService
 
 __all__ = ["TranslationService"]
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 __author__ = "daniel park <parkminwoo1991@gmail.com>"
