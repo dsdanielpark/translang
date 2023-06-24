@@ -7,7 +7,7 @@ pip install translang
 ```
 
 ## Seamless Integration of Translation APIs through Inheritance
-You can easily extend the TranslationService class to integrate with popular translation API services, similar to the transllm project.
+You can easily extend the `TranslationService` class to integrate with popular translation API services.
 ```python
 class CustomTranslationService(TranslationService):
     def __init__(self, translator="google", deepl_api=None, bard_api=None, openai_api=None, openai_model='gpt-3.5-turbo'):
