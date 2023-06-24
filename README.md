@@ -1,14 +1,10 @@
 # translang
 Translation Service Module for other projects. 
 
-
-
 ## Install
 ```
 pip install translang
 ```
-
-
 
 ## Usage
 ### Seamless Integration of Translation APIs through Inheritance
@@ -83,6 +79,7 @@ for text, translated_text in zip(texts, translated_texts):
 
 ```
 
+<br><br>
 
 ## License
 [MIT](https://opensource.org/license/mit/) <br>
