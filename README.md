@@ -35,10 +35,10 @@ translated_text = translator.custom_process_with_translation("Hello", "ko")
 print(translated_text)
 ```
 
+<br>
 
 ### `TranslationService.translate` Methods
-
-Google Translator
+Google Translator, DeepL, OpenAI, Bard
 ```python
 fomr translang import TranslationService
 
