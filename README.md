@@ -1,5 +1,5 @@
 # translang
-Translation Service Module for other projects. Refer to the [`inference` method](https://github.com/dsdanielpark/hf-transllm/blob/main/transllm/core.py#L75) and [`generate` method](https://github.com/dsdanielpark/hf-transllm/blob/main/transllm/core.py#L91) in [hf-transllm](https://github.com/dsdanielpark/hf-transllm) Project.
+Translation Service Module for other projects. Refer to the [`inference` method](https://github.com/dsdanielpark/hf-transllm/blob/main/transllm/core.py#L75) and [`generate` method](https://github.com/dsdanielpark/hf-transllm/blob/main/transllm/core.py#L93) in [hf-transllm](https://github.com/dsdanielpark/hf-transllm) Project.
 
 
 
