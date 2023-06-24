@@ -53,6 +53,7 @@ print(translated_text)
 
 
 <br>
+
 ### `TranslationService.translate_parallel` Method
 
 ```python
