@@ -13,6 +13,7 @@ pip install translang
 ## Usage
 ### Seamless Integration of Translation APIs through Inheritance
 You can easily extend the `TranslationService` class to integrate with popular translation API services.
+
 ```python
 class CustomTranslationService(TranslationService):
     def __init__(self, translator="google", deepl_api=None, bard_api=None, openai_api=None, openai_model='gpt-3.5-turbo'):
@@ -27,11 +28,8 @@ class CustomTranslationService(TranslationService):
 ```python
 translator = CustomTranslationService(translator="google")
 
-text = "Hello, how are you?"
-destination_lang = "ko"  # Korean
-
-translated_text = asyncio.run(translator.custom_process_with_translation(text, destination_lang))
-print(f"Translated Text (Custom Translation Service): {translated_text}")
+translated_text = translator.custom_process_with_translation("Hello", "ko")
+print(translated_text)
 ```
 
 
@@ -41,44 +39,32 @@ Google Translator
 ```python
 translator = TranslationService(translator="google")
 
-text = "Hello, how are you?"
-destination_lang = "es"  # Spanish
-
-translated_text = asyncio.run(translator.translate(text, destination_lang))
-print(f"Translated Text (Google Translate): {translated_text}")
+translated_text = translator.translate("Hello", "ko")
+print(translated_text)
 ```
 
 DeepL
 ```python
 translator = TranslationService(translator="deepl", deepl_api="YOUR_DEEPL_API_KEY")
 
-text = "Hello, how are you?"
-destination_lang = "es"  # Spanish
-
-translated_text = asyncio.run(translator.translate(text, destination_lang))
-print(f"Translated Text (DeepL Translate): {translated_text}")
+translated_text = translator.translate("Hello", "es")
+print(translated_text)
 ```
 
 Bard
 ```python
 translator = TranslationService(translator="bard", bard_api="YOUR_BARD_API_KEY")
 
-text = "Hello, how are you?"
-destination_lang = "es"  # Spanish
-
-translated_text = asyncio.run(translator.translate(text, destination_lang))
-print(f"Translated Text (Bard Translate): {translated_text}")
+translated_text = translator.translate("Hello", "korean") # Full language name
+print(translated_text)
 ```
 
 OpenAI
 ```python
 translator = TranslationService(translator="openai", openai_api="YOUR_OPENAI_API_KEY")
 
-text = "Hello, how are you?"
-destination_lang = "es"  # Spanish
-
-translated_text = asyncio.run(translator.translate(text, destination_lang))
-print(f"Translated Text (OpenAI Translate): {translated_text}")
+translated_text = translator.translate("Hello", "korean") # Full language name
+print(translated_text)
 ```
 
 
