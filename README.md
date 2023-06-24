@@ -38,32 +38,11 @@ print(translated_text)
 Google Translator
 ```python
 translator = TranslationService(translator="google")
+# translator = TranslationService(translator="deepl", deepl_api="YOUR_DEEPL_API_KEY")                  # DeepL
+# translator = TranslationService(translator="bard", bard_api="YOUR_BARD_API_KEY")                     # Bard
+# translator = TranslationService(translator="openai", openai_api="YOUR_OPENAI_API_KEY", openai_model="gpt-3.5-trubo") # Open AI
 
 translated_text = translator.translate("Hello", "ko")
-print(translated_text)
-```
-
-DeepL
-```python
-translator = TranslationService(translator="deepl", deepl_api="YOUR_DEEPL_API_KEY")
-
-translated_text = translator.translate("Hello", "es")
-print(translated_text)
-```
-
-Bard
-```python
-translator = TranslationService(translator="bard", bard_api="YOUR_BARD_API_KEY")
-
-translated_text = translator.translate("Hello", "korean") # Full language name
-print(translated_text)
-```
-
-OpenAI
-```python
-translator = TranslationService(translator="openai", openai_api="YOUR_OPENAI_API_KEY")
-
-translated_text = translator.translate("Hello", "korean") # Full language name
 print(translated_text)
 ```
 
