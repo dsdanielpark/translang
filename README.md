@@ -1,6 +1,9 @@
 # translang
 Translation Service Module for other projects. Refer to the [hf-transllm](https://github.com/dsdanielpark/hf-transllm) Project for Reference.
 
+
+<br>
+
 ## Install
 ```
 pip install translang
