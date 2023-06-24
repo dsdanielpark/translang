@@ -37,7 +37,7 @@ print(translated_text)
 
 <br>
 
-### `TranslationService.translate` Methods
+### `TranslationService.translate` Method
 Google Translator, DeepL, OpenAI, Bard
 ```python
 fomr translang import TranslationService
@@ -49,6 +49,37 @@ translator = TranslationService(translator="google")                            
 
 translated_text = translator.translate("Hello", "ko")
 print(translated_text)
+```
+
+
+<br>
+### `TranslationService.translate_parallel` Method
+
+```python
+from translang import TranslationService
+
+# Create an instance of TranslationService
+translator = TranslationService(translator="google", use_cache=True)
+
+# List of texts to translate
+texts = [
+    "Hello",
+    "Nice to meet you",
+    "Testing the translation service"
+]
+
+# Destination language code
+dest_lang = "ko"
+
+# Call the translate_parallel method
+translated_texts = translator.translate_parallel(texts, dest_lang)
+
+# Print the translated texts
+for text, translated_text in zip(texts, translated_texts):
+    print(f"Original: {text}")
+    print(f"Translated: {translated_text}")
+    print("-----")
+
 ```
 
 
