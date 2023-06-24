@@ -1,6 +1,5 @@
 # translang
-Translation Service Module for other projects.
-
+Translation Service Module for other projects. Refer to the [hf-transllm](https://github.com/dsdanielpark/hf-transllm) Project for Reference.
 
 # Install
 ```
