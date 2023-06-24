@@ -1,5 +1,5 @@
 # translang
-Translation Service Module
+Translation Service Module for other projects.
 
 
 # Install
