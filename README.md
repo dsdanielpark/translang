@@ -28,7 +28,7 @@ class CustomTranslationService(TranslationService):
 translator = CustomTranslationService(translator="google")
 
 text = "Hello, how are you?"
-destination_lang = "es"  # Spanish
+destination_lang = "ko"  # Korean
 
 translated_text = asyncio.run(translator.custom_process_with_translation(text, destination_lang))
 print(f"Translated Text (Custom Translation Service): {translated_text}")
