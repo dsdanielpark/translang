@@ -17,8 +17,9 @@ class CustomTranslationService(TranslationService):
         translated_text = self.translate(text, dest_lang)
         # Perform additional customization or processing if needed
         return translated_text
+```
 
-
+```python
 translator = CustomTranslationService(translator="google")
 
 text = "Hello, how are you?"
