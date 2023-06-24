@@ -8,8 +8,8 @@ pip install translang
 
 <br><br>
 
-# Usage
-## Seamless Integration of Translation APIs through Inheritance
+## Usage
+### Seamless Integration of Translation APIs through Inheritance
 You can easily extend the `TranslationService` class to integrate with popular translation API services.
 ```python
 class CustomTranslationService(TranslationService):
@@ -34,7 +34,7 @@ print(f"Translated Text (Custom Translation Service): {translated_text}")
 
 <br>
 
-## Static Methods
+### Static Methods
 
 Google Translator
 ```python
@@ -81,7 +81,7 @@ print(f"Translated Text (OpenAI Translate): {translated_text}")
 ```
 
 
-## License
+### License
 [MIT](https://opensource.org/license/mit/) <br>
 I hold no legal responsibility; 
 ```
@@ -108,9 +108,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
 
-## Bugs and Issues
+### Bugs and Issues
 Sincerely grateful for any reports on new features or bugs. Your valuable feedback on the code is highly appreciated.
 
-## Contacts
+### Contacts
 - Core maintainer: [Daniel Park, South Korea](https://github.com/DSDanielPark) <br>
 - E-mail: parkminwoo1991@gmail.com <br>
