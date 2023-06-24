@@ -1,130 +1,112 @@
-# Copyright (c) 2023 Park Minwoo MIT License
-
 import re
 import deepl
 import openai
-import asyncio
-from bardapi import Bard
+import concurrent.futures
 from googletrans import Translator
+from bardapi import Bard
+from typing import List
 
 
 class TranslationService:
-    def __init__(self, translator="google", deepl_api=None, bard_api=None, openai_api=None, openai_model='gpt-3.5-turbo'):
-        """
-        The TranslationService class provides functionality to translate text using various translation services.
+    """
+    A service for translating text using different translation engines.
 
-        :param translator: The translation service to use (default: "google")
-        :param deepl_api: DeepL API key (if required)
-        :param bard_api: Bard API key (if required)
-        :param openai_api: OpenAI API key (if required)
-        :param openai_model: OpenAI model name (default: "gpt-3.5-turbo")
-        """
+    Args:
+        translator (str, optional): The translation engine to use. Defaults to "google".
+        deepl_api_key (str, optional): API key for DeepL translator. Required if translator is "deepl".
+        bard_api_key (str, optional): API key for Bard translator. Required if translator is "bard".
+        openai_api_key (str, optional): API key for OpenAI translator. Required if translator is "openai".
+        openai_model (str, optional): The OpenAI model to use. Defaults to "gpt-3.5-turbo".
+        use_cache (bool, optional): Whether to use a translation cache. Defaults to False.
+
+    Attributes:
+        translator (str): The translation engine being used.
+        deepl_api_key (str): API key for DeepL translator.
+        bard_api_key (str): API key for Bard translator.
+        openai_api_key (str): API key for OpenAI translator.
+        openai_model (str): The OpenAI model being used.
+        use_cache (bool): Whether to use a translation cache.
+        translation_cache (dict): Cache for storing translated texts.
+        translator_engine: The translation engine object.
+
+    """
+
+    def __init__(self, translator="google", deepl_api_key=None, bard_api_key=None, openai_api_key=None, openai_model='gpt-3.5-turbo', use_cache=False):
         self.translator = translator
-        self.deepl_api = deepl_api
-        self.bard_api = bard_api
-        self.openai_api = openai_api
+        self.deepl_api_key = deepl_api_key
+        self.bard_api_key = bard_api_key
+        self.openai_api_key = openai_api_key
         self.openai_model = openai_model
+        self.use_cache = use_cache
 
         self.translation_cache = {}
-        self.translator_obj = None
-
-    async def translate(self, text: str, dest_lang: str) -> str:
-        """
-        Translates the given text to the specified destination language.
-
-        :param text: The text to be translated
-        :param dest_lang: The destination language for translation
-        :return: The translated text
-        """
-        cache_key = (text, dest_lang)
-        translated_text = self.translation_cache.get(cache_key)
-        if translated_text is not None:
-            return translated_text
-
-        if self.translator_obj is None:
-            self.translator_obj = self.create_translator()
+        self.translator_engine = None
 
         if self.translator == "google":
-            translated_text = await self.async_translate_google(text, dest_lang)
+            self.translator_engine = Translator()
         elif self.translator == "deepl":
-            translated_text = await self.async_translate_deepl(text, dest_lang)
+            self.translator_engine = deepl.Translator(auth_key=self.deepl_api_key)
         elif self.translator == "bard":
-            translated_text = await self.async_translate_bard(text, dest_lang)
+            self.translator_engine = Bard(token=self.bard_api_key)
         elif self.translator == "openai":
-            translated_text = await self.async_translate_openai(text, dest_lang)
+            openai.api_key = self.openai_api_key
 
-        self.translation_cache[cache_key] = translated_text
-        return translated_text
+    def _refine_bard(self, text):
+        try: 
+            extracted_text = re.search(r'\*\*(.*?)\*\*', text).group(1)
+        except:
+            matches = re.findall(r'"([^"]+)"', text)
+            extracted_text=matches[1]
+        return extracted_text
 
-    def create_translator(self):
+    def translate(self, text: str, dest_lang: str) -> str:
         """
-        Creates an instance of the translator based on the selected translation service.
+        Translate the given text to the specified destination language.
 
-        :return: The translator object
+        Args:
+            text (str): The text to be translated.
+            dest_lang (str): The destination language code.
+
+        Returns:
+            str: The translated text.
+
         """
+        if self.use_cache:
+            cache_key = (text, dest_lang)
+            translated_text = self.translation_cache.get(cache_key)
+            if translated_text is not None:
+                return translated_text
+
         if self.translator == "google":
-            return Translator()
+            translated_text = self.translator_engine.translate(text, dest=dest_lang).text
         elif self.translator == "deepl":
-            return deepl.Translator(self.deepl_api)
+            translated_text = self.translator_engine.translate_text(text, target_lang=dest_lang).text
         elif self.translator == "bard":
-            return Bard(token=self.bard_api)
+            translated = self.translator_engine.get_answer(f"translate {text} to {dest_lang} only")['content']
+            translated_text = self._refine_bard(translated)
+        elif self.translator == "openai":
+            prompt = f"Translate the following text to {dest_lang}: {text}\nLanguage: {self.openai_model}\n\nTranslation:"
+            response = openai.Completion.create(engine=self.openai_model, prompt=prompt, max_tokens=100)
+            translated_text = response.choices[0].text.strip()
 
-    async def async_translate_google(self, text, dest_lang):
-        """
-        Translates the text using Google Translate asynchronously.
+        if self.use_cache:
+            cache_key = (text, dest_lang)
+            self.translation_cache[cache_key] = translated_text
 
-        :param text: The text to be translated
-        :param dest_lang: The destination language for translation
-        :return: The translated text
-        """
-        return (await self.translator_obj.translate(text, dest=dest_lang)).text
-
-    async def async_translate_deepl(self, text, dest_lang):
-        """
-        Translates the text using DeepL Translate asynchronously.
-
-        :param text: The text to be translated
-        :param dest_lang: The destination language for translation
-        :return: The translated text
-        """
-        return (await self.translator_obj.translate_text(text, target_lang=dest_lang)).text
-
-    async def async_translate_bard(self, text, dest_lang):
-        """
-        Translates the text using Bard Translate asynchronously.
-
-        :param text: The text to be translated
-        :param dest_lang: The destination language for translation
-        :return: The translated text
-        """
-        translated = (await self.translator_obj.get_answer(f"translate {text} to {dest_lang} only"))['content']
-        extracted_text = re.findall(r'"([^"]*)"', translated)
-        return extracted_text[0]
-
-    async def async_translate_openai(self, text, dest_lang):
-        """
-        Translates the text using OpenAI Translate asynchronously.
-
-        :param text: The text to be translated
-        :param dest_lang: The destination language for translation
-        :return: The translated text
-        """
-        openai.api_key = self.openai_api
-        prompt = f"Translate the following text to {dest_lang}: {text}\nLanguage: {self.openai_model}\n\nTranslation:"
-        response = await asyncio.get_event_loop().run_in_executor(None, openai.Completion.create, engine=self.openai_model, prompt=prompt, max_tokens=100)
-        translated_text = response.choices[0].text.strip()
         return translated_text
 
-    def translate_batch(self, texts: list, dest_lang: str) -> list:
+    def translate_parallel(self, texts: List[str], dest_lang: str) -> List[str]:
         """
-        Translates a batch of texts to the specified destination language.
+        Translate a list of texts to the specified destination language in parallel.
 
-        :param texts: The list of texts to be translated
-        :param dest_lang: The destination language for translation
-        :return: The list of translated texts
+        Args:
+            texts (List[str]): The list of texts to be translated.
+            dest_lang (str): The destination language code.
+
+        Returns:
+            List[str]: The list of translated texts.
+
         """
-        results = []
-        for text in texts:
-            result = self.translate(text, dest_lang)
-            results.append(result)
-        return results
+        with concurrent.futures.ThreadPoolExecutor() as executor:
+            translated_texts = list(executor.map(self.translate, texts, [dest_lang] * len(texts)))
+        return translated_texts

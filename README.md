@@ -15,9 +15,11 @@ pip install translang
 You can easily extend the `TranslationService` class to integrate with popular translation API services.
 
 ```python
+from translang import TranslationService
+
 class CustomTranslationService(TranslationService):
-    def __init__(self, translator="google", deepl_api=None, bard_api=None, openai_api=None, openai_model='gpt-3.5-turbo'):
-        super().__init__(translator, deepl_api, bard_api, openai_api, openai_model)
+    def __init__(self, translator="google", deepl_api_key=None, bard_api_key=None, openai_api_key=None, openai_model='gpt-3.5-turbo'):
+        super().__init__(translator, deepl_api_key, bard_api_key, openai_api_key, openai_model)
 
     def custom_process_with_translation(self, text: str, dest_lang: str) -> str:
         translated_text = self.translate(text, dest_lang)
@@ -37,10 +39,12 @@ print(translated_text)
 
 Google Translator
 ```python
-translator = TranslationService(translator="google")
-# translator = TranslationService(translator="deepl", deepl_api="YOUR_DEEPL_API_KEY")                  # DeepL
-# translator = TranslationService(translator="bard", bard_api="YOUR_BARD_API_KEY")                     # Bard
-# translator = TranslationService(translator="openai", openai_api="YOUR_OPENAI_API_KEY", openai_model="gpt-3.5-trubo") # Open AI
+fomr translang import TranslationService
+
+translator = TranslationService(translator="google")                                                                         # Google
+# translator = TranslationService(translator="deepl", deepl_api_key="YOUR_DEEPL_API_KEY")                                    # DeepL
+# translator = TranslationService(translator="bard", bard_api_key="YOUR_BARD_API_KEY")                                       # Bard
+# translator = TranslationService(translator="openai", openai_api_key="YOUR_OPENAI_API_KEY", openai_model="gpt-3.5-trubo")   # Open AI
 
 translated_text = translator.translate("Hello", "ko")
 print(translated_text)
