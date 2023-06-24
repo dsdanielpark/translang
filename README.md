@@ -1,5 +1,5 @@
 # translang
-Translation Service Module for other projects. Refer to the [`inference` method](https://github.com/dsdanielpark/hf-transllm/blob/main/transllm/core.py#L75) and [`generate` method](https://github.com/dsdanielpark/hf-transllm/blob/main/transllm/core.py#L93) in [hf-transllm](https://github.com/dsdanielpark/hf-transllm) project.
+Translation Service Module for other projects. 
 
 
 
@@ -13,6 +13,7 @@ pip install translang
 ## Usage
 ### Seamless Integration of Translation APIs through Inheritance
 You can easily extend the `TranslationService` class to integrate with popular translation API services.
+Refer to the [`inference` method](https://github.com/dsdanielpark/hf-transllm/blob/main/transllm/core.py#L75) and [`generate` method](https://github.com/dsdanielpark/hf-transllm/blob/main/transllm/core.py#L93) in [hf-transllm](https://github.com/dsdanielpark/hf-transllm) project.
 
 ```python
 from translang import TranslationService
