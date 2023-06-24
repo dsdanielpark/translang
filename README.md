@@ -7,7 +7,31 @@ Translation Service Module
 pip install translang
 ```
 
-# Usage
+# Seamless Integration of Translation APIs through Inheritance
+You can easily extend the TranslationService class to integrate with popular translation API services, similar to the transllm project.
+```python
+class CustomTranslationService(TranslationService):
+    def __init__(self, translator="google", deepl_api=None, bard_api=None, openai_api=None, openai_model='gpt-3.5-turbo'):
+        super().__init__(translator, deepl_api, bard_api, openai_api, openai_model)
+
+    def custom_translate(self, text: str, dest_lang: str) -> str:
+        translated_text = self.translate(text, dest_lang)
+        # Perform additional customization or processing if needed
+        return translated_text
+
+
+translator = CustomTranslationService(translator="google")
+
+text = "Hello, how are you?"
+destination_lang = "es"  # Spanish
+
+translated_text = asyncio.run(translator.custom_translate(text, destination_lang))
+print(f"Translated Text (Custom Translation Service): {translated_text}")
+```
+
+<br>
+
+# Static Usage
 
 Google Translator
 ```python
