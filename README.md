@@ -81,7 +81,7 @@ print(f"Translated Text (OpenAI Translate): {translated_text}")
 ```
 
 
-### License
+## License
 [MIT](https://opensource.org/license/mit/) <br>
 I hold no legal responsibility; 
 ```
