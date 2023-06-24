@@ -51,13 +51,24 @@ class TranslationService:
         elif self.translator == "openai":
             openai.api_key = self.openai_api_key
 
-    def _refine_bard(self, text):
-        try: 
-            extracted_text = re.search(r'\*\*(.*?)\*\*', text).group(1)
-        except:
-            matches = re.findall(r'"([^"]+)"', text)
-            extracted_text=matches[1]
-        return extracted_text
+                
+    def _refine_bard_answer(self, text: str) -> str:
+        """
+        Extracts and returns refined text from the given input text using specific patterns.
+        
+        Args:
+            text (str): The input text to be refined.
+        
+        Returns:
+            str: The refined text extracted from the input text.
+        """
+        extracted_text = re.search(r'```(.*?)```|\*\*(.*?)\*\*', text, re.DOTALL)
+        
+        if extracted_text:
+            return extracted_text.group(1) or extracted_text.group(2) 
+        
+        return text
+
 
     def translate(self, text: str, dest_lang: str) -> str:
         """
@@ -78,14 +89,15 @@ class TranslationService:
                 return translated_text
 
         if self.translator == "google":
-            translated_text = self.translator_engine.translate(text, dest=dest_lang).text
+            translator_obj = Translator()
+            translated_text = translator_obj.translate(text, dest=dest_lang).text
         elif self.translator == "deepl":
             translated_text = self.translator_engine.translate_text(text, target_lang=dest_lang).text
         elif self.translator == "bard":
-            translated = self.translator_engine.get_answer(f"translate {text} to {dest_lang} only")['content']
-            translated_text = self._refine_bard(translated)
+            translated = self.translator_engine.get_answer(f"Translate the following text to {dest_lang}: {text}")['content']
+            translated_text = self._refine_bard_answer(translated)
         elif self.translator == "openai":
-            prompt = f"Translate the following text to {dest_lang}: {text}\nLanguage: {self.openai_model}\n\nTranslation:"
+            prompt = f"Translate the following text to {dest_lang}: {text}"
             response = openai.Completion.create(engine=self.openai_model, prompt=prompt, max_tokens=100)
             translated_text = response.choices[0].text.strip()
 
