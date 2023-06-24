@@ -1,12 +1,14 @@
 # translang
 Translation Service Module for other projects. Refer to the [hf-transllm](https://github.com/dsdanielpark/hf-transllm) Project for Reference.
 
+
+
 ## Install
 ```
 pip install translang
 ```
 
-<br><br>
+
 
 ## Usage
 ### Seamless Integration of Translation APIs through Inheritance
@@ -32,7 +34,6 @@ translated_text = asyncio.run(translator.custom_process_with_translation(text, d
 print(f"Translated Text (Custom Translation Service): {translated_text}")
 ```
 
-<br>
 
 ### Static Methods
 
