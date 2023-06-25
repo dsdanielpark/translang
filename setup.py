@@ -40,6 +40,7 @@ setup(
         "deep_translator",
         "bardapi",
         "openai",
+        "google-cloud-translate==2.0.1",
     ],
     keywords="Python, API, Bard, Google Bard, Large Language Model, Chatbot API, Google API, Chatbot",
     classifiers=[

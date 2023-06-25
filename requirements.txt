@@ -3,3 +3,4 @@ deep_translator
 transformers
 deepl
 openai
+google-cloud-translate==2.0.1

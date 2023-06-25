@@ -18,12 +18,13 @@ class CustomTranslationService(TranslationService):
     def __init__(self, translator="google", deepl_api_key=None, bard_api_key=None, openai_api_key=None, openai_model='gpt-3.5-turbo'):
         super().__init__(translator, deepl_api_key, bard_api_key, openai_api_key, openai_model)
 
-    def custom_process_with_translation(self, text: str, dest_lang: str) -> str:
-        translated_text = self.translate(text, dest_lang)
+    def custom_process_with_translation(self, text: str, target_lang: str) -> str:
+        translated_text = self.translate(text, target_lang)
         # Perform additional customization or processing if needed
         return translated_text
 ```
 
+Commercial use or official use of the Google Translate service is chargeable. Please provide the google_official argument and google_api_key. Refer to the following notebook file and official link for more information. Use the google argument only for some basic functionality testing.
 ```python
 translator = CustomTranslationService(translator="google")
 
@@ -66,10 +67,10 @@ texts = [
 ]
 
 # Destination language code
-dest_lang = "ko"
+target_lang = "ko"
 
 # Call the translate_parallel method
-translated_texts = translator.translate_parallel(texts, dest_lang)
+translated_texts = translator.translate_parallel(texts, target_lang)
 
 # Print the translated texts
 for text, translated_text in zip(texts, translated_texts):
