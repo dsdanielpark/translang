@@ -24,7 +24,8 @@ class CustomTranslationService(TranslationService):
         return translated_text
 ```
 
-Commercial use or official use of the Google Translate service is chargeable. Please provide the google_official argument and google_api_key. Refer to the following notebook file and official link for more information. Use the google argument only for some basic functionality testing.
+Commercial use or official use of the Google Translate service is chargeable. Please provide the `translator=google_official` argument and `google_api_key={YOUR_API_KEY}`. Refer to the following [notebook file](https://github.com/dsdanielpark/translang/blob/main/scripts/google_official.ipynb) and [official link](https://cloud.google.com/translate?utm_source=google&utm_medium=cpc&utm_campaign=japac-KR-all-en-dr-BKWS-all-mv-trial-EXA-dr-1605216&utm_content=text-ad-none-none-DEV_c-CRE_631260646738-ADGP_Hybrid%20%7C%20BKWS%20-%20EXA%20%7C%20Txt%20~%20AI%20&%20ML_Translation%20AI_google%20translate%20api_main-KWID_43700073965169292-kwd-14329410560&userloc_1009871-network_g&utm_term=KW_google%20translate%20api&gclid=Cj0KCQjwy9-kBhCHARIsAHpBjHjTvBCM7NNcf4fYGsog4ViQErgJvACFXB5JCNUT0h_EpQ5kyUT-SrIaApZBEALw_wcB&gclsrc=aw.ds&hl=ko) for more information. Use the google argument only for some basic functionality testing.
+
 ```python
 translator = CustomTranslationService(translator="google")
 
