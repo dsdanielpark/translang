@@ -38,7 +38,8 @@ Google Translator, DeepL, OpenAI, Bard
 ```python
 fomr translang import TranslationService
 
-translator = TranslationService(translator="google")                                                                         # Google
+translator = TranslationService(translator="google") # Unofficial Google Translate for functionality testing.              
+# translator = TranslationService(translator="google_official", google_api_key="YOUR_GOOGLE_API_KEY")                          # Google Translator
 # translator = TranslationService(translator="deepl", deepl_api_key="YOUR_DEEPL_API_KEY")                                    # DeepL
 # translator = TranslationService(translator="bard", bard_api_key="YOUR_BARD_API_KEY")                                       # Bard
 # translator = TranslationService(translator="openai", openai_api_key="YOUR_OPENAI_API_KEY", openai_model="gpt-3.5-trubo")   # Open AI
@@ -56,7 +57,7 @@ print(translated_text)
 from translang import TranslationService
 
 # Create an instance of TranslationService
-translator = TranslationService(translator="google", use_cache=True)
+translator = TranslationService(translator="google", use_cache=True) # Unofficial Google Translate for functionality testing.   
 
 # List of texts to translate
 texts = [
